@@ -40,5 +40,3 @@ spec:
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 5
-      imagePullSecrets:
-        - name: ghcr-secret   # (4) obrigatório pra GHCR privado
