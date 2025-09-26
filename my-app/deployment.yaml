@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: ghcr.io/rodrigonascimento001/java-k8s/java-k8s:5bda297990c8142679536748764f0ce8c9ee3a95
+          image: ghcr.io/rodrigonascimento001/java-k8s/java-k8s:133e0e8c18547a45195c3e65aa09ef812fd8531f
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
