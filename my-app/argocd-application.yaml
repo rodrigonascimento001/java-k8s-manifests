@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/rodrigonascimento001/java-k8s-manifests.git
-    targetRevision: main   # branch que você está usando
+    targetRevision: develop   # branch que você está usando
     path: my-app
   destination:
     server: https://kubernetes.default.svc
