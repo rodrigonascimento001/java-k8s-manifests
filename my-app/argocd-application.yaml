@@ -2,18 +2,19 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: my-app
-  namespace: argocd
+  namespace: argocd   # namespace onde ArgoCD está instalado
 spec:
   project: default
   source:
     repoURL: https://github.com/rodrigonascimento001/java-k8s-manifests.git
-    targetRevision: develop   # branch que você está usando
+    targetRevision: HEAD
     path: my-app
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: java-k8s
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true        # remove recursos que não estão mais no repo
+      selfHeal: true     # corrige alterações manuais no cluster
+
 

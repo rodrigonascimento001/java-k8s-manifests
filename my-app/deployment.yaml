@@ -16,26 +16,29 @@ spec:
         app: java-k8s-app
     spec:
       containers:
-        - name: java-k8s-app
-          image: ghcr.io/rodrigonascimento001/java-k8s:latest
+        - name: my-app
+          image: ghcr.io/rodrigonascimento001/java-k8s/my-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 10
-          resources:
+          resources:          # (1) limites de recursos → ajuda o scheduler
             requests:
               cpu: "100m"
               memory: "256Mi"
             limits:
               cpu: "500m"
               memory: "512Mi"
+          livenessProbe:      # (2) healthcheck básico
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:     # (3) garante que só entra no load balancer se estiver pronto
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      imagePullSecrets:
+        - name: ghcr-secret   # (4) obrigatório pra GHCR privado
