@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: java-k8s-app
-          image: ghcr.io/rodrigonascimento001/java-k8s:latest # será substituído pelo CI/CD
+          image: ghcr.io/rodrigonascimento001/java-k8s/java-k8s:3a5c26610c87c9f41a0afa5a9de19eff0e7a2d27
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
