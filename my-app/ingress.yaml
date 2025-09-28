@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: java-k8s-app
   namespace: java-k8s
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:

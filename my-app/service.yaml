@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: java-k8s-app
-  type: NodePort
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 80           # porta interna do Service
