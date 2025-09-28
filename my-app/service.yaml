@@ -4,11 +4,10 @@ metadata:
   name: java-k8s-app
   namespace: java-k8s
 spec:
+  type: ClusterIP
   selector:
     app: java-k8s-app
-  type: ClusterIP
   ports:
     - protocol: TCP
-      port: 80           # porta interna do Service
-      targetPort: 8080   # porta do container
-      nodePort: 30081    # porta externa no cluster
+      port: 80
+      targetPort: 8080
