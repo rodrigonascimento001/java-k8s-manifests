@@ -16,10 +16,29 @@ spec:
         app: java-k8s-app
     spec:
       containers:
-        - name: my-app
-          image: ghcr.io/rodrigonascimento001/java-k8s/my-app:latest # será substituído no CI/CD
+        - name: java-k8s-app
+          image: ghcr.io/rodrigonascimento001/java-k8s:latest # será substituído pelo CI/CD
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
       imagePullSecrets:
         - name: ghcr-secret
