@@ -3,12 +3,12 @@ kind: Service
 metadata:
   name: java-k8s-app
   namespace: java-k8s
+  labels:
+    app: java-k8s-app
 spec:
-  type: ClusterIP
   selector:
     app: java-k8s-app
   ports:
-    - name: http
-      protocol: TCP
+    - name: http         # ESSENCIAL!
       port: 80
       targetPort: 8080
