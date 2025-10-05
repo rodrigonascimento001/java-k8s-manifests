@@ -2,14 +2,16 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: java-k8s-app-servicemonitor
+  namespace: monitoring
   labels:
-    release: monitoring
+    release: monitoring-stack
 spec:
   selector:
     matchLabels:
       app: java-k8s-app      # assegure que seu Service tem label app: java-k8s-app
   namespaceSelector:
-    any: true   # se preferir, use matchNames: [java-k8s]
+    matchNames:
+      - java-k8s   # se preferir, use matchNames: [java-k8s]
   endpoints:
     - port: http               # nome da porta no Service (ver item Service abaixo)
       path: /actuator/prometheus
