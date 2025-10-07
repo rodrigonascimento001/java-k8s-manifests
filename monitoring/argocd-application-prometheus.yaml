@@ -8,22 +8,25 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
-    targetRevision: "77.13.0"
+    targetRevision: 65.1.0
     helm:
+      skipCrds: false # Instale os CRDs se for a primeira vez
       values: |
-        fullnameOverride: monitoring
-        grafana:
-          enabled: true
-          adminUser: admin
-          adminPassword: "ChangeMe123!"   # troque para algo seguro ou use secret + ArgoCD Vault
-          service:
-            type: ClusterIP
         prometheus:
           prometheusSpec:
-            serviceMonitorSelector: {}
+            serviceMonitorSelectorNilUsesHelmValues: false
+            podMonitorSelectorNilUsesHelmValues: false
+            ruleSelectorNilUsesHelmValues: false
             serviceMonitorNamespaceSelector: {}
-        kubePrometheusOperator:
-          enabled: true
+            podMonitorNamespaceSelector: {}
+            probeNamespaceSelector: {}
+            serviceMonitorSelector:
+              matchLabels:
+                release: monitoring-stack
+        grafana:
+          adminPassword: admin
+          service:
+            type: NodePort
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -33,3 +36,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
