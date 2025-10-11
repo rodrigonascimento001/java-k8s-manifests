@@ -8,25 +8,10 @@ spec:
   source:
     repoURL: https://prometheus-community.github.io/helm-charts
     chart: kube-prometheus-stack
-    targetRevision: 65.1.0
+    targetRevision: latest
     helm:
-      skipCrds: false # Instale os CRDs se for a primeira vez
-      values: |
-        prometheus:
-          prometheusSpec:
-            serviceMonitorSelectorNilUsesHelmValues: false
-            podMonitorSelectorNilUsesHelmValues: false
-            ruleSelectorNilUsesHelmValues: false
-            serviceMonitorNamespaceSelector: {}
-            podMonitorNamespaceSelector: {}
-            probeNamespaceSelector: {}
-            serviceMonitorSelector:
-              matchLabels:
-                release: monitoring-stack
-        grafana:
-          adminPassword: admin
-          service:
-            type: NodePort
+      valueFiles:
+        - values-monitoring.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
@@ -34,6 +19,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
