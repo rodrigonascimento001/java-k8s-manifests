@@ -17,26 +17,22 @@ spec:
     spec:
       containers:
         - name: java-k8s-app
-          image: ghcr.io/rodrigonascimento001/java-k8s/java-k8s:latest
+          image: ghcr.io/rodrigonascimento001/java-k8s/java-k8s:8b657a7cad667e46253398b328ed50a3dd08ec37
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: 8080
             initialDelaySeconds: 50
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
+            periodSeconds: 5
           livenessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: 8080
             initialDelaySeconds: 60
-            periodSeconds: 15
-            timeoutSeconds: 5
-            failureThreshold: 3
+            periodSeconds: 10
           resources:
             requests:
               cpu: "100m"
