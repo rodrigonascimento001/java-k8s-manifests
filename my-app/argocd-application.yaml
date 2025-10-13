@@ -7,14 +7,14 @@ spec:
   ignoreDifferences:
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
-  project: default
+  project: java-k8s
   source:
     repoURL: https://github.com/rodrigonascimento001/java-k8s-manifests.git
     targetRevision: develop   # branch que você está usando
     path: my-app
   destination:
     server: https://kubernetes.default.svc
-    namespace: java-k8s
+    namespace: default
   syncPolicy:
     automated:
       prune: true
