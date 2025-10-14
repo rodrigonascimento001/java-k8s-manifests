@@ -4,19 +4,15 @@ metadata:
   name: my-app
   namespace: argocd
 spec:
-  ignoreDifferences:
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-  project: java-k8s
+  project: default
   source:
     repoURL: https://github.com/rodrigonascimento001/java-k8s-manifests.git
-    targetRevision: develop   # branch que você está usando
+    targetRevision: develop
     path: my-app
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: java-k8s
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
-
