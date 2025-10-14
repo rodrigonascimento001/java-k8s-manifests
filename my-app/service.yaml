@@ -4,7 +4,7 @@ metadata:
   name: java-k8s-app
   namespace: java-k8s
   labels:
-    app: java-k8s-app   # <-- ESSENCIAL!
+    app: java-k8s-app
 spec:
   type: ClusterIP
   selector:
