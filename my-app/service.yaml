@@ -6,7 +6,6 @@ metadata:
   labels:
     app: java-k8s-app
 spec:
-  type: ClusterIP
   selector:
     app: java-k8s-app
   ports:
